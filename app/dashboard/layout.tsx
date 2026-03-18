@@ -14,7 +14,10 @@ export default function DashboardLayout({
 
   return (
     <>
-      <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      <Header 
+        isSidebarOpen={sidebarOpen}
+        onMenuClick={() => setSidebarOpen(!sidebarOpen)} 
+      />
 
       <div className={styles.dashboard}>
         <Sidebar 

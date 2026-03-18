@@ -178,6 +178,10 @@ $transition: 0.2s ease;
   &:hover {
     background: rgba($navy, 0.05);
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .avatar {
@@ -213,7 +217,6 @@ $transition: 0.2s ease;
   }
 }
 
-// Hamburger menu
 .hamburger {
   display: none;
   flex-direction: column;
@@ -225,6 +228,7 @@ $transition: 0.2s ease;
   cursor: pointer;
   padding: 0;
   z-index: 200;
+  margin-left: 16px;
 
   span {
     display: block;
@@ -312,7 +316,6 @@ $transition: 0.2s ease;
   margin-top: 8px;
 }
 
-// Mobile search button
 .mobileActions {
   display: none;
   align-items: center;
@@ -327,6 +330,9 @@ $transition: 0.2s ease;
   background: none;
   border: none;
   cursor: pointer;
+  background-color: #39CDCC;
+  border-radius:5 ;
+  margin-right: .5rem;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -393,5 +399,181 @@ $transition: 0.2s ease;
     padding: 8px;
     font-size: 18px;
     color: $navy-light;
+  }
+}
+
+.mobileUserProfile {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background $transition;
+
+  &:hover {
+    background: rgba($navy, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: $navy-light;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .dropdownArrow {
+    img {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// Mobile dropdown menu
+.mobileDropdown {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: $white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 16px;
+  z-index: 400;
+  animation: slideDown 0.2s ease;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.dropdownSearch {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .dropdownSearchInput {
+    flex: 1;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid $border;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: $navy;
+    outline: none;
+
+    &::placeholder {
+      color: $navy-light;
+    }
+
+    &:focus {
+      border-color: $teal;
+    }
+  }
+
+  .dropdownSearchBtn {
+    min-width: 50px;
+    height: 40px;
+    background: $teal;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background $transition;
+  color: $navy-light;
+  text-decoration: none;
+  font-size: 14px;
+
+  &:hover {
+    background: rgba($navy, 0.05);
+    color: $navy;
+  }
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+.dropdownUserProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-top: 1px solid $border;
+  margin-top: 8px;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: $navy-light;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .dropdownUserInfo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdownUserName {
+    font-size: 14px;
+    font-weight: 600;
+    color: $navy;
   }
 }
