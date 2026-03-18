@@ -1,0 +1,460 @@
+// ===========================
+// Variables
+// ===========================
+$primary: #213f7d;
+$muted: #545f7d;
+$bg: #f5f5f5;
+$white: #ffffff;
+$border: #f0f0f0;
+$hover-row: #fafafa;
+
+$status-active-bg: #e5f7ee;
+$status-active-text: #39cd62;
+$status-inactive-bg: #f0f0f0;
+$status-inactive-text: #545f7d;
+$status-pending-bg: #fdf4e7;
+$status-pending-text: #e9b200;
+$status-blacklisted-bg: #fce8e8;
+$status-blacklisted-text: #e4033b;
+
+// ===========================
+// Page Layout
+// ===========================
+.page {
+  min-height: 100vh;
+  background: $bg;
+  padding: 2rem;
+  font-family: "Work Sans", sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: 2rem;
+}
+
+// ===========================
+// Stats Cards
+// ===========================
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background: $white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.statIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  img {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &--pink { background: #fce8f0; }
+  &--purple { background: #ede6f4; }
+  &--orange { background: #fef0e6; }
+  &--red { background: #fde8ec; }
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $primary;
+}
+
+// ===========================
+// Table Card
+// ===========================
+.tableCard {
+  background: $white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+// ===========================
+// Table Header
+// ===========================
+.thead {
+  border-bottom: 1px solid $border;
+}
+
+.th {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.thInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.filterIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0.5;
+}
+
+// ===========================
+// Table Body
+// ===========================
+.tr {
+  border-bottom: 1px solid $border;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: $hover-row;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.td {
+  padding: 1rem 1.5rem;
+  color: $muted;
+  white-space: nowrap;
+}
+
+// ===========================
+// Status Badge
+// ===========================
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &--Active {
+    background: $status-active-bg;
+    color: $status-active-text;
+  }
+
+  &--Inactive {
+    background: $status-inactive-bg;
+    color: $status-inactive-text;
+  }
+
+  &--Pending {
+    background: $status-pending-bg;
+    color: $status-pending-text;
+  }
+
+  &--Blacklisted {
+    background: $status-blacklisted-bg;
+    color: $status-blacklisted-text;
+  }
+}
+
+// ===========================
+// More Button
+// ===========================
+.moreBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: #b0b0b0;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $muted;
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+// ===========================
+// Pagination
+// ===========================
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.perPage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: $muted;
+}
+
+.perPageSelect {
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.875rem;
+  background: #f9f9f9;
+  color: $primary;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(57, 205, 204, 0.3);
+  }
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pageBtn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  border: none;
+  background: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+
+  &--active {
+    background: $primary;
+    color: $white;
+
+    &:hover {
+      background: darken($primary, 5%);
+    }
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.ellipsis {
+  padding: 0 0.25rem;
+  color: #b0b0b0;
+  font-size: 0.875rem;
+}
+
+// ===========================
+// Filter Icon Wrap (relative anchor)
+// ===========================
+.filterIconWrap {
+  position: relative;
+}
+
+// ===========================
+// Filter Dropdown
+// ===========================
+.filterDropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 100;
+  background: $white;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem;
+  width: 22rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filterField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $primary;
+  }
+
+  input,
+  select {
+    border: 1px solid #c5c5c5;
+    border-radius: 0.375rem;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    color: $muted;
+    background: $white;
+    outline: none;
+    appearance: none;
+    width: 100%;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &::placeholder {
+      color: #c5c5c5;
+    }
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23545f7d' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+  }
+}
+
+.filterActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.resetBtn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid $primary;
+  background: $white;
+  color: $primary;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: lighten($primary, 55%);
+  }
+}
+
+.filterBtn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  border: none;
+  background: #39cdcc;
+  color: $white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: darken(#39cdcc, 8%);
+  }
+}
+
+// ===========================
+// More Button Wrap + Menu
+// ===========================
+.tdMore {
+  position: relative;
+}
+
+.moreBtnWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.moreMenu {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 0.5rem);
+  transform: translateY(-30%);
+  z-index: 100;
+  background: $white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  min-width: 10rem;
+  border: 1px solid $border;
+}
+
+.moreMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  color: $muted;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+
+  img {
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    background: $bg;
+    color: $primary;
+  }
+}

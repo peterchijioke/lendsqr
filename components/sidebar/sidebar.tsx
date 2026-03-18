@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./sidebar.module.scss";
 
 interface NavItem {
   label: string;
   icon: string;
+  path?:string;
 }
 
 interface NavGroup {
@@ -19,6 +21,7 @@ const navigation: NavGroup[] = [
     items: [
       {
         label: "Users",
+        path: "/dashboard/users",
         icon: "/icons/user-friends.svg",
       },
       {
@@ -64,6 +67,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const [activeItem, setActiveItem] = useState("Users");
+  const router = useRouter();
 
   return (
     <>
@@ -104,6 +108,9 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                       className={`${styles.navItem} ${activeItem === item.label ? styles.active : ""}`}
                       onClick={() => {
                         setActiveItem(item.label);
+                        if (item.path) {
+                          router.push(item.path);
+                        }
                         onClose?.();
                       }}
                     >
