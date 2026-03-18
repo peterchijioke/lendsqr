@@ -1,6 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import styles from "./users.module.scss";
+import MoreMenu from "@/components/more-menu/more-menu";
+import FilterDropdown from "@/components/filter-dropdown/filter-dropdown";
 
 const USERS = [
   {
@@ -130,123 +132,7 @@ const emptyFilter: FilterForm = {
   status: "",
 };
 
-function FilterDropdown({
-  onClose,
-  onFilter,
-}: {
-  onClose: () => void;
-  onFilter: (f: FilterForm) => void;
-}) {
-  const [form, setForm] = useState<FilterForm>(emptyFilter);
-  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
-
-  const set =
-    (key: keyof FilterForm) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-      setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  return (
-    <div ref={ref} className={styles.filterDropdown}>
-      <div className={styles.filterField}>
-        <label>Organization</label>
-        <select value={form.org} onChange={set("org")}>
-          <option value="">Select</option>
-          <option value="Lendsqr">Lendsqr</option>
-          <option value="Irorun">Irorun</option>
-          <option value="Lendstar">Lendstar</option>
-        </select>
-      </div>
-      <div className={styles.filterField}>
-        <label>Username</label>
-        <input
-          placeholder="User"
-          value={form.username}
-          onChange={set("username")}
-        />
-      </div>
-      <div className={styles.filterField}>
-        <label>Email</label>
-        <input placeholder="Email" value={form.email} onChange={set("email")} />
-      </div>
-      <div className={styles.filterField}>
-        <label>Date</label>
-        <input type="date" value={form.date} onChange={set("date")} />
-      </div>
-      <div className={styles.filterField}>
-        <label>Phone Number</label>
-        <input
-          placeholder="Phone Number"
-          value={form.phone}
-          onChange={set("phone")}
-        />
-      </div>
-      <div className={styles.filterField}>
-        <label>Status</label>
-        <select value={form.status} onChange={set("status")}>
-          <option value="">Select</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-          <option value="Pending">Pending</option>
-          <option value="Blacklisted">Blacklisted</option>
-        </select>
-      </div>
-      <div className={styles.filterActions}>
-        <button
-          className={styles.resetBtn}
-          onClick={() => setForm(emptyFilter)}
-        >
-          Reset
-        </button>
-        <button
-          className={styles.filterBtn}
-          onClick={() => {
-            onFilter(form);
-            onClose();
-          }}
-        >
-          Filter
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function MoreMenu({ onClose }: { onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
-
-  return (
-    <div ref={ref} className={styles.moreMenu}>
-      <button className={styles.moreMenuItem}>
-        <img src="/icons/view.svg" alt="" />
-        View Details
-      </button>
-      <button className={styles.moreMenuItem}>
-        <img src="/icons/blacklist.svg" alt="" />
-        Blacklist User
-      </button>
-      <button className={styles.moreMenuItem}>
-        <img src="/icons/activate.svg" alt="" />
-        Activate User
-      </button>
-    </div>
-  );
-}
 
 export default function UsersPage() {
   const [perPage, setPerPage] = useState(100);
@@ -297,30 +183,33 @@ export default function UsersPage() {
                   <th key={col} className={styles.th}>
                     <span className={styles.thInner}>
                       {col}
-                      <div className={styles.filterIconWrap}>
-                        <div
+                      {colIdx === 0 && (
+                        <button
+                          type="button"
                           className={styles.filterIcon}
-                          onClick={() =>
-                            colIdx === 0 && setFilterOpen((v) => !v)
-                          }
+                          onClick={() => setFilterOpen((v) => !v)}
                         >
                           <img
                             src="/icons/filter-results-button.svg"
                             alt="filter"
                           />
-                        </div>
-                        {colIdx === 0 && filterOpen && (
-                          <FilterDropdown
-                            onClose={() => setFilterOpen(false)}
-                            onFilter={(f) => setActiveFilter(f)}
-                          />
-                        )}
-                      </div>
+                        </button>
+                      )}
                     </span>
                   </th>
                 ))}
                 <th className={styles.th} />
               </tr>
+              {filterOpen && (
+                <tr>
+                  <td className={styles.filterTd} colSpan={COLUMNS.length + 1}>
+                    <FilterDropdown
+                      onClose={() => setFilterOpen(false)}
+                      onFilter={(f) => setActiveFilter(f)}
+                    />
+                  </td>
+                </tr>
+              )}
             </thead>
             <tbody>
               {filteredUsers.map((user, i) => (
@@ -357,7 +246,8 @@ export default function UsersPage() {
             </tbody>
           </table>
         </div>
-
+      </div>
+      <div>
         <div className={styles.pagination}>
           <div className={styles.perPage}>
             <span>Showing</span>

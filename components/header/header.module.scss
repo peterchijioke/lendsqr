@@ -121,7 +121,6 @@ $transition: 0.2s ease;
 .docsLink {
   font-size: 14px;
   color: $navy-light;
-  // text-decoration: none;
   transition: color $transition;
 
   &:hover {
@@ -256,7 +255,6 @@ $transition: 0.2s ease;
   }
 }
 
-// Mobile menu
 .mobileMenu {
   display: none;
   position: fixed;
@@ -441,7 +439,6 @@ $transition: 0.2s ease;
   }
 }
 
-// Mobile dropdown menu
 .mobileDropdown {
   display: none;
   position: fixed;

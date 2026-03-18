@@ -1,6 +1,3 @@
-// ===========================
-// Variables
-// ===========================
 $primary: #213f7d;
 $muted: #545f7d;
 $bg: #f5f5f5;
@@ -17,13 +14,9 @@ $status-pending-text: #e9b200;
 $status-blacklisted-bg: #fce8e8;
 $status-blacklisted-text: #e4033b;
 
-// ===========================
-// Page Layout
-// ===========================
 .page {
   min-height: 100vh;
   background: $bg;
-  padding: 2rem;
   font-family: "Work Sans", sans-serif;
 }
 
@@ -34,9 +27,6 @@ $status-blacklisted-text: #e4033b;
   margin-bottom: 2rem;
 }
 
-// ===========================
-// Stats Cards
-// ===========================
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -94,18 +84,13 @@ $status-blacklisted-text: #e4033b;
   color: $primary;
 }
 
-// ===========================
-// Table Card
-// ===========================
 .tableCard {
   background: $white;
   border-radius: 0.75rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
 }
 
 .tableWrapper {
-  overflow-x: auto;
 }
 
 .table {
@@ -114,9 +99,6 @@ $status-blacklisted-text: #e4033b;
   border-collapse: collapse;
 }
 
-// ===========================
-// Table Header
-// ===========================
 .thead {
   border-bottom: 1px solid $border;
 }
@@ -132,6 +114,12 @@ $status-blacklisted-text: #e4033b;
   white-space: nowrap;
 }
 
+.filterTd {
+  padding: 0;
+  background: $white;
+  position: relative;
+}
+
 .thInner {
   display: inline-flex;
   align-items: center;
@@ -139,14 +127,30 @@ $status-blacklisted-text: #e4033b;
 }
 
 .filterIcon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   opacity: 0.5;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  img {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
 }
 
-// ===========================
-// Table Body
-// ===========================
 .tr {
   border-bottom: 1px solid $border;
   transition: background 0.15s ease;
@@ -166,9 +170,6 @@ $status-blacklisted-text: #e4033b;
   white-space: nowrap;
 }
 
-// ===========================
-// Status Badge
-// ===========================
 .badge {
   display: inline-flex;
   align-items: center;
@@ -198,9 +199,6 @@ $status-blacklisted-text: #e4033b;
   }
 }
 
-// ===========================
-// More Button
-// ===========================
 .moreBtn {
   background: none;
   border: none;
@@ -219,14 +217,11 @@ $status-blacklisted-text: #e4033b;
   }
 }
 
-// ===========================
-// Pagination
-// ===========================
 .pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0rem;
   border-top: 1px solid $border;
   flex-wrap: wrap;
   gap: 1rem;
@@ -302,16 +297,10 @@ $status-blacklisted-text: #e4033b;
   font-size: 0.875rem;
 }
 
-// ===========================
-// Filter Icon Wrap (relative anchor)
-// ===========================
 .filterIconWrap {
   position: relative;
 }
 
-// ===========================
-// Filter Dropdown
-// ===========================
 .filterDropdown {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -407,9 +396,6 @@ $status-blacklisted-text: #e4033b;
   }
 }
 
-// ===========================
-// More Button Wrap + Menu
-// ===========================
 .tdMore {
   position: relative;
 }
