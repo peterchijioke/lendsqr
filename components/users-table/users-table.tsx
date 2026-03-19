@@ -54,7 +54,7 @@ export default function UsersTable({ users }: UsersTableProps) {
   const [openMoreIdx, setOpenMoreIdx] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(100);
-
+  const filterBtnRef = useRef<HTMLButtonElement>(null);
   const buttonRefs = useRef<Record<number, HTMLButtonElement>>({});
 
   const filteredUsers = users.filter((u) => {
@@ -96,6 +96,7 @@ export default function UsersTable({ users }: UsersTableProps) {
           filterRowContent={
             filterOpen ? (
               <FilterDropdown
+                anchorEl={filterBtnRef.current}
                 onClose={() => setFilterOpen(false)}
                 onFilter={(f) => setActiveFilter(f as FilterForm)}
               />
@@ -149,6 +150,7 @@ export default function UsersTable({ users }: UsersTableProps) {
             if (column.key === "org") {
               return (
                 <button
+                  ref={filterBtnRef}
                   type="button"
                   className={styles.filterIcon}
                   onMouseDown={(e) => {

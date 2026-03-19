@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import styles from "./filter-dropdown.module.scss";
 
 interface FilterForm {
@@ -22,32 +23,76 @@ const emptyFilter: FilterForm = {
 };
 
 interface FilterDropdownProps {
+  anchorEl: HTMLElement | null;
   onClose: () => void;
   onFilter: (f: FilterForm) => void;
 }
 
+// Added: detect mobile so we can switch rendering mode
+function useIsMobile(breakpoint = 640) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= breakpoint : false,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    setIsMobile(mq.matches);
+    return () => mq.removeEventListener("change", handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 export default function FilterDropdown({
+  anchorEl,
   onClose,
   onFilter,
 }: FilterDropdownProps) {
   const [form, setForm] = useState<FilterForm>(emptyFilter);
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile(); // Added
+
+  const rect = anchorEl?.getBoundingClientRect();
+  const top = rect ? rect.bottom + window.scrollY + 6 : 0;
+  // Clamp left so dropdown never overflows the right edge on any screen size
+  const left = rect
+    ? Math.min(
+        rect.left - 100, // 352px ≈ 22rem, 16px right margin
+      )
+    : 16;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+      if (
+        ref.current &&
+        !ref.current.contains(e.target as Node) &&
+        e.target !== anchorEl
+      ) {
+        onClose();
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
+  }, [onClose, anchorEl]);
+
+  // Added: lock body scroll when mobile sheet is open
+  useEffect(() => {
+    if (isMobile) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [isMobile]);
 
   const set =
     (key: keyof FilterForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  return (
-    <div ref={ref} className={styles.filterDropdown}>
+  // Extracted shared fields so both layouts reuse them
+  const fields = (
+    <>
       <div className={styles.filterField}>
         <label>Organization</label>
         <select value={form.org} onChange={set("org")}>
@@ -108,6 +153,42 @@ export default function FilterDropdown({
           Filter
         </button>
       </div>
+    </>
+  );
+
+  // Added: mobile bottom sheet
+  if (isMobile) {
+    return createPortal(
+      <div className={styles.mobileOverlay} onClick={onClose}>
+        <div
+          ref={ref}
+          className={styles.mobileSheet}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={styles.mobileHandle} />
+          <div className={styles.mobileHeader}>
+            <span className={styles.mobileTitle}>Filter</span>
+            <button
+              className={styles.closeBtn}
+              onClick={onClose}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
+          {fields}
+        </div>
+      </div>,
+      document.body,
+    );
+  }
+
+  // Original desktop dropdown — untouched
+  const dropdown = (
+    <div ref={ref} className={styles.filterDropdown} style={{ top, left }}>
+      {fields}
     </div>
   );
+
+  return createPortal(dropdown, document.body);
 }
