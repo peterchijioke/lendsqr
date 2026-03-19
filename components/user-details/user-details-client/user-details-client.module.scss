@@ -5,9 +5,35 @@ $color-text-main: #213f7d;
 $color-text-muted: #545f7d;
 $color-bg: #fbfbfb;
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .page {
   padding: 32px 0px 0px;
   color: $color-text-main;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.pageHeader {
+  animation: fadeInUp 0.5s ease-out 0.1s forwards;
+  opacity: 0;
 }
 
 .backBtn {
