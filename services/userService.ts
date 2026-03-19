@@ -71,6 +71,7 @@ export interface StatsResponse {
 }
 
 const getApiUrl = () => {
+  // Use the environment variable if available (Vercel), otherwise use relative URL (development)
   return process.env.NEXT_PUBLIC_API_URL || '';
 };
 
@@ -100,12 +101,15 @@ export const userService = {
   },
   getUsers:async(): Promise<User[]>=> {
     try {
-      const res = await fetch(`${getApiUrl()}/api/users?limit=500`, {
+      const apiUrl = getApiUrl();
+      console.log('Fetching users from:', `${apiUrl}/api/users?limit=500`);
+      
+      const res = await fetch(`${apiUrl}/api/users?limit=500`, {
         cache: 'no-store',
       });
       
       if (!res.ok) {
-        throw new Error('Failed to fetch users');
+        throw new Error(`Failed to fetch users: ${res.status} ${res.statusText}`);
       }
       
       const response: UsersResponse = await res.json();
