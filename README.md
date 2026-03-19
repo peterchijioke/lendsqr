@@ -6,7 +6,7 @@ A modern web application built with Next.js for managing users, loans, and finan
 
 - **Framework:** Next.js 16.1.7
 - **UI Library:** React 19.2.3
-- **Styling:** SCSS Modules + Tailwind CSS 4
+- **Styling:** SCSS Modules
 - **Language:** TypeScript 5
 
 ## Project Structure
@@ -327,11 +327,7 @@ Note: Some fields vary between records (e.g., some have `maritalStatus` or `gend
 
 ## Styling
 
-This project uses a combination of:
-- **SCSS Modules** - Component-scoped styles (`.module.scss`)
-- **Tailwind CSS** - Utility-first styling
-
-Styles are located alongside their components in respective `.module.scss` files.
+This project uses **SCSS Modules** for component-scoped styles (`.module.scss` files).
 
 ## Bug Fixes
 
