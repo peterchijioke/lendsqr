@@ -6,8 +6,10 @@ import Table from "@/components/table";
 import MoreMenu from "@/components/more-menu/more-menu";
 import FilterDropdown from "@/components/filter-dropdown/filter-dropdown";
 import Pagination from "@/components/pagination";
+import { useRouter } from "next/navigation";
 
 interface User {
+  id: string;
   org: string;
   username: string;
   email: string;
@@ -49,6 +51,7 @@ const COLUMNS = [
 ];
 
 export default function UsersTable({ users }: UsersTableProps) {
+  const router = useRouter();
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterForm>(emptyFilter);
   const [openMoreIdx, setOpenMoreIdx] = useState<number | null>(null);
@@ -135,6 +138,8 @@ export default function UsersTable({ users }: UsersTableProps) {
                     <MoreMenu
                       anchorEl={buttonRefs.current[idx] ?? null}
                       onClose={() => setOpenMoreIdx(null)}
+                      userId={user.id}
+                      onViewDetails={(userId) => router.push(`/dashboard/users/${userId}`)}
                     />
                   )}
                 </div>

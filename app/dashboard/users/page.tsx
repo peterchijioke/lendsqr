@@ -2,6 +2,7 @@ import styles from "./users.module.scss";
 import UsersTable from "@/components/users-table";
 
 interface User {
+  id: string;
   org: string;
   username: string;
   email: string;
@@ -18,6 +19,7 @@ export const metadata = {
 
 const USERS: User[] = [
   {
+    id: "1",
     org: "Lendsqr",
     username: "Adedeji",
     email: "adedeji@lendsqr.com",
@@ -26,6 +28,7 @@ const USERS: User[] = [
     status: "Inactive",
   },
   {
+    id: "2",
     org: "Irorun",
     username: "Debby Ogana",
     email: "debby2@irorun.com",
@@ -34,6 +37,7 @@ const USERS: User[] = [
     status: "Pending",
   },
   {
+    id: "3",
     org: "Lendstar",
     username: "Grace Effiom",
     email: "grace@lendstar.com",
@@ -42,6 +46,7 @@ const USERS: User[] = [
     status: "Blacklisted",
   },
   {
+    id: "4",
     org: "Lendsqr",
     username: "Tosin Dokunmu",
     email: "tosin@lendsqr.com",
@@ -50,6 +55,7 @@ const USERS: User[] = [
     status: "Pending",
   },
   {
+    id: "5",
     org: "Lendstar",
     username: "Grace Effiom",
     email: "grace@lendstar.com",
@@ -58,6 +64,7 @@ const USERS: User[] = [
     status: "Active",
   },
   {
+    id: "6",
     org: "Lendsqr",
     username: "Tosin Dokunmu",
     email: "tosin@lendsqr.com",
@@ -66,6 +73,7 @@ const USERS: User[] = [
     status: "Active",
   },
   {
+    id: "7",
     org: "Lendstar",
     username: "Grace Effiom",
     email: "grace@lendstar.com",
@@ -74,6 +82,7 @@ const USERS: User[] = [
     status: "Blacklisted",
   },
   {
+    id: "8",
     org: "Lendsqr",
     username: "Tosin Dokunmu",
     email: "tosin@lendsqr.com",
@@ -82,6 +91,7 @@ const USERS: User[] = [
     status: "Inactive",
   },
   {
+    id: "9",
     org: "Lendstar",
     username: "Grace Effiom",
     email: "grace@lendstar.com",

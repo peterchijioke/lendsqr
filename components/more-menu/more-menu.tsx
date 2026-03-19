@@ -7,9 +7,11 @@ import styles from "./more-menu.module.scss";
 interface MoreMenuProps {
   anchorEl: HTMLElement | null;
   onClose: () => void;
+  userId: string;
+  onViewDetails: (userId: string) => void;
 }
 
-export default function MoreMenu({ anchorEl, onClose }: MoreMenuProps) {
+export default function MoreMenu({ anchorEl, onClose, userId, onViewDetails }: MoreMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const rect = anchorEl?.getBoundingClientRect();
@@ -32,7 +34,10 @@ export default function MoreMenu({ anchorEl, onClose }: MoreMenuProps) {
 
   const menu = (
     <div ref={menuRef} className={styles.moreMenu} style={{ top, left }}>
-      <button className={styles.moreMenuItem}>
+      <button
+        className={styles.moreMenuItem}
+        onClick={() => onViewDetails(userId)}
+      >
         <img src="/icons/eye.svg" alt="" /> View Details
       </button>
       <button className={styles.moreMenuItem}>
