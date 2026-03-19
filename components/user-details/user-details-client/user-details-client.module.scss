@@ -1,0 +1,105 @@
+$color-primary: #213f7d;
+$color-accent: #39cdcc;
+$color-danger: #e4033b;
+$color-text-main: #213f7d;
+$color-text-muted: #545f7d;
+$color-bg: #fbfbfb;
+
+.page {
+  padding: 32px 0px 0px;
+  color: $color-text-main;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text-muted;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: color 0.2s ease;
+  text-decoration: none;
+
+  svg {
+    flex-shrink: 0;
+    color: inherit;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: $color-primary;
+  margin: 0;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.btnBlacklist {
+  padding: 10px 20px;
+  border: 1px solid $color-danger;
+  border-radius: 6px;
+  background: transparent;
+  color: $color-danger;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: $color-danger;
+    color: #fff;
+  }
+}
+
+.btnActivate {
+  padding: 10px 20px;
+  border: 1px solid $color-accent;
+  border-radius: 6px;
+  background: transparent;
+  color: $color-accent;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: $color-accent;
+    color: #fff;
+  }
+}

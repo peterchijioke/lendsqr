@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./user-details.module.scss";
+import styles from "./detail-card.module.scss";
 
 interface PersonalInfo {
   fullName: string;

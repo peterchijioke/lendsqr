@@ -1,0 +1,167 @@
+$color-primary: #213f7d;
+$color-accent: #39cdcc;
+$color-text-muted: #545f7d;
+$color-card: #ffffff;
+$color-border: #e5e5e5;
+$color-star-filled: #e9b200;
+$color-star-empty: #c4c4c4;
+
+$shadow-card: 0px 4px 20px rgba(0, 0, 0, 0.06);
+$border-radius-card: 8px;
+
+.profileCard {
+  background: $color-card;
+  border-radius: $border-radius-card;
+  box-shadow: $shadow-card;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.profileTop {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 32px 32px 28px;
+  border-bottom: none;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+}
+
+.profileIdentity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 40px;
+
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #e8edf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profileName {
+  font-size: 20px;
+  font-weight: 600;
+  color: $color-primary;
+  margin: 0 0 4px;
+}
+
+.profileId {
+  font-size: 13px;
+  color: $color-text-muted;
+  font-weight: 400;
+}
+
+.profileDivider {
+  width: 1px;
+  height: 60px;
+  background: $color-border;
+  margin: 0 40px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+}
+
+.profileTier {
+  padding-right: 40px;
+
+  @media (max-width: 768px) {
+    padding-right: 0;
+    text-align: center;
+  }
+}
+
+.tierLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: $color-text-muted;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.starFilled {
+  color: $color-star-filled;
+}
+
+.starEmpty {
+  color: $color-star-empty;
+}
+
+.profileBalance {
+  padding-left: 0;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.balanceAmount {
+  font-size: 22px;
+  font-weight: 700;
+  color: $color-primary;
+  margin: 0 0 4px;
+}
+
+.balanceAccount {
+  font-size: 13px;
+  color: $color-text-muted;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  border-top: 1px solid $color-border;
+  padding: 0 32px;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text-muted;
+  padding: 18px 20px 16px;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  margin-bottom: -1px;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  &.tabActive {
+    color: $color-accent;
+    border-bottom-color: $color-accent;
+    font-weight: 600;
+  }
+}

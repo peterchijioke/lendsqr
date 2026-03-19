@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./user-details.module.scss";
+import styles from "./profile-card.module.scss";
 
 interface ProfileCardProps {
   name: string;

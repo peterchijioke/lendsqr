@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./user-details.module.scss";
-import ProfileCard from "./profile-card";
-import DetailCard from "./detail-card";
+import styles from "./user-details-client.module.scss";
+import ProfileCard from "../profile-card";
+import DetailCard from "../detail-card";
 
 interface PersonalInfo {
   fullName: string;

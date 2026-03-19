@@ -1,0 +1,86 @@
+$color-primary: #213f7d;
+$color-card: #ffffff;
+$color-border: #e5e5e5;
+$color-text-light: #9ba6bc;
+
+$shadow-card: 0px 4px 20px rgba(0, 0, 0, 0.06);
+$border-radius-card: 8px;
+
+.detailCard {
+  background: $color-card;
+  border-radius: $border-radius-card;
+  box-shadow: $shadow-card;
+  padding: 32px;
+}
+
+.section {
+  padding: 8px 0 24px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-primary;
+  margin: 0 0 24px;
+}
+
+.sectionDivider {
+  height: 1px;
+  background: $color-border;
+  margin: 8px 0 28px;
+}
+
+.guarantorDivider {
+  height: 1px;
+  background: $color-border;
+  margin: 24px 0;
+}
+
+.grid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px 16px;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: $color-text-light;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.fieldValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-primary;
+  line-height: 1.4;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: $color-text-light;
+  font-size: 14px;
+}
