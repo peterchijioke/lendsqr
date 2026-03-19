@@ -83,7 +83,8 @@ lendsqr/
 
 ### UI Components
 - Responsive sidebar navigation
-- Header with notification bell
+- Header with user info display from local storage
+- Header search functionality that filters users table
 - Filter dropdown menus
 - Custom tables
 - Pagination controls
@@ -144,7 +145,7 @@ Create a `.env.local` file in the root directory for any required environment va
 - `/` - Redirects to login
 - `/login` - Login page
 - `/dashboard` - Main dashboard
-- `/dashboard/users` - Users list
+- `/dashboard/users` - Users list with search and filters
 - `/dashboard/users/[id]` - User details
 
 ## API Routes
@@ -380,6 +381,28 @@ Components import these variables using:
 ```scss
 @use '../../styles/variables' as *;
 ```
+
+## New Features
+
+### User Information in Header
+The header now displays the logged-in user's name fetched from local storage. When a user logs in, their profile information is stored in local storage under the key `lendsqr_user`. The header automatically displays the user's first and last name.
+
+### Search Functionality
+The global header search now integrates with the users table:
+- Users can search for any user by name, email, phone number, or account number
+- Search is performed by typing in the header search input and pressing Enter
+- Results are displayed on the users page with real-time filtering
+- Clearing the search input automatically resets and shows all users
+- The search state is synced with URL parameters for shareable links
+
+#### Search Fields
+The search filters users by:
+- Full name
+- First name
+- Last name
+- Email address
+- Phone number
+- Account number
 
 ## Bug Fixes
 
