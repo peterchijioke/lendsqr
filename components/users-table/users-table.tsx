@@ -52,13 +52,13 @@ const COLUMNS = [
 
 export default function UsersTable({ users }: UsersTableProps) {
   const router = useRouter();
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [openFilterColumn, setOpenFilterColumn] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<FilterForm>(emptyFilter);
   const [openMoreIdx, setOpenMoreIdx] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(100);
-  const filterBtnRef = useRef<HTMLButtonElement>(null);
   const buttonRefs = useRef<Record<number, HTMLButtonElement>>({});
+  const filterBtnRefs = useRef<Record<string, HTMLButtonElement>>({});
 
   const filteredUsers = users.filter((u) => {
     if (activeFilter.org && u.org !== activeFilter.org) return false;
@@ -94,13 +94,13 @@ export default function UsersTable({ users }: UsersTableProps) {
         <Table
           columns={COLUMNS}
           data={filteredUsers}
-          showFilterRow={filterOpen}
+          showFilterRow={openFilterColumn !== null}
           showCard={false}
           filterRowContent={
-            filterOpen ? (
+            openFilterColumn !== null ? (
               <FilterDropdown
-                anchorEl={filterBtnRef.current}
-                onClose={() => setFilterOpen(false)}
+                anchorEl={filterBtnRefs.current[openFilterColumn] ?? null}
+                onClose={() => setOpenFilterColumn(null)}
                 onFilter={(f) => setActiveFilter(f as FilterForm)}
               />
             ) : undefined
@@ -152,23 +152,25 @@ export default function UsersTable({ users }: UsersTableProps) {
             return String(user[column.key as keyof User] ?? "");
           }}
           renderHeaderCell={(column) => {
-            if (column.key === "org") {
-              return (
-                <button
-                  ref={filterBtnRef}
-                  type="button"
-                  className={styles.filterIcon}
-                  onMouseDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    setFilterOpen((v) => !v);
-                  }}
-                >
-                  <img src="/icons/filter-results-button.svg" alt="filter" />
-                </button>
-              );
-            }
-            return null;
+            if (column.key === "actions") return null;
+            return (
+              <button
+                ref={(el) => {
+                  if (el && column.key === "org") filterBtnRefs.current[column.key] = el;
+                }}
+                type="button"
+                className={styles.filterIcon}
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  if (column.key === "org") {
+                    setOpenFilterColumn((v) => (v === column.key ? null : column.key));
+                  }
+                }}
+              >
+                <img src="/icons/filter-results-button.svg" alt="filter" />
+              </button>
+            );
           }}
         />
       </div>

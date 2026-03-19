@@ -49,13 +49,13 @@ export default function Table<T>({
                 </th>
               ))}
             </tr>
-            {showFilterRow && filterRowContent && (
+           
               <tr>
                 <td className={styles.filterTd} colSpan={columns.length}>
                   {filterRowContent}
                 </td>
               </tr>
-            )}
+       
           </thead>
           <tbody>
             {data.length === 0 ? (

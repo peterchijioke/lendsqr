@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import styles from "./sidebar.module.scss";
+import { getActiveLabel, isActivePath } from "./sidebar-utils";
 
 interface NavItem {
   label: string;
@@ -65,14 +66,9 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-export const pathToLabelMap: Record<string, string> = {
-  "/dashboard": "Dashboard",
-  "/dashboard/users": "Users",
-};
-
 export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const activeItem = pathToLabelMap[pathname] || "";
+  const activeItem = getActiveLabel(pathname);
   const router = useRouter();
 
   return (
