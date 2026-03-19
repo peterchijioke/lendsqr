@@ -1,37 +1,48 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import styles from "./more-menu.module.scss";
 
 interface MoreMenuProps {
+  anchorEl: HTMLElement | null;
   onClose: () => void;
 }
 
-export default function MoreMenu({ onClose }: MoreMenuProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function MoreMenu({ anchorEl, onClose }: MoreMenuProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const rect = anchorEl?.getBoundingClientRect();
+  const top = rect ? rect.bottom + window.scrollY + 4 : 0;
+  const left = rect ? rect.right + window.scrollX - 160 : 0;
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node) &&
+        e.target !== anchorEl
+      ) {
+        onClose();
+      }
     };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose, anchorEl]);
 
-  return (
-    <div ref={ref} className={styles.moreMenu}>
+  const menu = (
+    <div ref={menuRef} className={styles.moreMenu} style={{ top, left }}>
       <button className={styles.moreMenuItem}>
-        <img src="/icons/eye.svg" alt="" />
-        View Details
+        <img src="/icons/eye.svg" alt="" /> View Details
       </button>
       <button className={styles.moreMenuItem}>
-        <img src="/icons/user-x.svg" alt="" />
-        Blacklist User
+        <img src="/icons/user-x.svg" alt="" /> Blacklist User
       </button>
       <button className={styles.moreMenuItem}>
-        <img src="/icons/user-tick.svg" alt="" />
-        Activate User
+        <img src="/icons/user-tick.svg" alt="" /> Activate User
       </button>
     </div>
   );
+
+  return createPortal(menu, document.body);
 }
