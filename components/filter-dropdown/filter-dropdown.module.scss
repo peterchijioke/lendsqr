@@ -1,10 +1,5 @@
-$primary: #213f7d;
-$muted: #545f7d;
-$bg: #f5f5f5;
-$white: #ffffff;
-$border: #f0f0f0;
+@use '../../styles/variables' as *;
 
-// ─── Existing desktop styles (untouched) ──────────────────────────
 
 .filterDropdown {
   position: absolute;
@@ -13,7 +8,7 @@ $border: #f0f0f0;
   border-radius: 0.75rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   padding: 1.5rem;
-  width: 22rem;
+  width: 20rem;
   max-width: calc(100vw - 2rem);
   display: flex;
   flex-direction: column;
@@ -40,28 +35,28 @@ $border: #f0f0f0;
   label {
     font-size: 0.8rem;
     font-weight: 500;
-    color: $primary;
+    color: $navy;
   }
 
   input,
   select {
     box-sizing: border-box;
-    border: 1px solid #c5c5c5;
+    border: 1px solid $text-muted;
     border-radius: 0.375rem;
-    padding: 0.55rem 0.75rem;
+    padding: 0.75rem 0.75rem;
     font-size: 0.875rem;
-    color: $muted;
+    color: $text-secondary;
     background: $white;
     outline: none;
     appearance: none;
     width: 100%;
 
     &:focus {
-      border-color: $primary;
+      border-color: $navy;
     }
 
     &::placeholder {
-      color: #c5c5c5;
+      color: $text-muted;
     }
   }
 
@@ -83,15 +78,15 @@ $border: #f0f0f0;
   flex: 1;
   padding: 0.6rem 1rem;
   border-radius: 8px;
-  border: 1px solid $primary;
+  border: 1px solid $navy;
   background: $white;
-  color: $primary;
+  color: $navy;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
 
-  &:hover { background: lighten($primary, 55%); }
+  &:hover { background: lighten($navy, 55%); }
   &:active { transform: scale(0.97); }
 }
 
@@ -100,14 +95,14 @@ $border: #f0f0f0;
   padding: 0.6rem 1rem;
   border-radius: 8px;
   border: none;
-  background: #39cdcc;
+  background: $teal;
   color: $white;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
 
-  &:hover { background: darken(#39cdcc, 8%); }
+  &:hover { background: darken($teal, 8%); }
   &:active { transform: scale(0.97); }
 }
 
@@ -161,17 +156,17 @@ $border: #f0f0f0;
 .mobileTitle {
   font-size: 1rem;
   font-weight: 600;
-  color: $primary;
+  color: $navy;
 }
 
 .closeBtn {
   background: none;
   border: none;
   font-size: 1rem;
-  color: $muted;
+  color: $text-secondary;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   line-height: 1;
 
-  &:hover { color: $primary; }
+  &:hover { color: $navy; }
 }
