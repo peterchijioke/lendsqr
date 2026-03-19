@@ -1,0 +1,129 @@
+$primary: #213f7d;
+$muted: #545f7d;
+$border: #f0f0f0;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0rem;
+  border-top: 1px solid $border;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+.perPage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: $muted;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+}
+
+.perPageSelect {
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.875rem;
+  background: #f9f9f9;
+  color: $primary;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(57, 205, 204, 0.3);
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.75rem;
+  }
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+  }
+}
+
+.pageBtn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  border: none;
+  background: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #f0f0f0;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &Active {
+    background: $primary;
+    color: #ffffff;
+
+    &:hover {
+      background: darken($primary, 5%);
+    }
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.75rem;
+
+    img {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+}
+
+.ellipsis {
+  padding: 0 0.25rem;
+  color: #b0b0b0;
+  font-size: 0.875rem;
+
+  @media (max-width: 480px) {
+    padding: 0 0.15rem;
+    font-size: 0.75rem;
+  }
+}

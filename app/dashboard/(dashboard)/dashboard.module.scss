@@ -3,40 +3,7 @@ $navy: #213F7D;
 $navy-light: #545F7D;
 $border: #E0E0E0;
 $white: #FFFFFF;
-$page-bg: #F5F5F5;
 $transition: 0.2s ease;
-
-.dashboard {
-  display: flex;
-  min-height: 100vh;
-  background: $page-bg;
-}
-
-.mainContent {
-  flex: 1;
-  margin-left: 240px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
-  @media (max-width: 1024px) {
-    margin-left: 200px;
-  }
-
-  @media (max-width: 768px) {
-    margin-left: 0;
-  }
-}
-
-.content {
-  padding: 32px;
-  flex: 1;
-  margin-top: 72px;
-
-  @media (max-width: 768px) {
-    padding: 16px;
-  }
-}
 
 .pageTitle {
   font-size: 28px;

@@ -1,0 +1,105 @@
+$primary: #213f7d;
+$muted: #545f7d;
+$bg: #f5f5f5;
+$white: #ffffff;
+$border: #f0f0f0;
+$hover-row: #fafafa;
+
+.tableCard {
+  background: $white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  width: 100%;
+}
+
+.tableCardPlain {
+  width: 100%;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.thead {
+  border-bottom: 1px solid $border;
+}
+
+.th {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.filterTd {
+  padding: 0;
+  background: $white;
+  position: relative;
+}
+
+.thInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@keyframes slideInRow {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tr {
+  border-bottom: 1px solid $border;
+  transition: background 0.15s ease;
+  animation: slideInRow 0.4s ease forwards;
+  opacity: 0;
+
+  &:hover {
+    background: $hover-row;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.clickable {
+    cursor: pointer;
+  }
+}
+
+.td {
+  padding: 1rem 1.5rem;
+  color: $muted;
+  white-space: nowrap;
+}
+
+.tdMore {
+  position: relative;
+  width: 1rem;
+}
+
+.emptyTd {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: $muted;
+  font-size: 0.875rem;
+}

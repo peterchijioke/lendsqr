@@ -1,0 +1,177 @@
+"use client";
+
+import { useState } from "react";
+import styles from "./users-table.module.scss";
+import Table from "@/components/table";
+import MoreMenu from "@/components/more-menu/more-menu";
+import FilterDropdown from "@/components/filter-dropdown/filter-dropdown";
+import Pagination from "@/components/pagination";
+
+interface User {
+  org: string;
+  username: string;
+  email: string;
+  phone: string;
+  joined: string;
+  status: "Active" | "Inactive" | "Pending" | "Blacklisted";
+}
+
+interface FilterForm {
+  org: string;
+  username: string;
+  email: string;
+  date: string;
+  phone: string;
+  status: string;
+}
+
+const emptyFilter: FilterForm = {
+  org: "",
+  username: "",
+  email: "",
+  date: "",
+  phone: "",
+  status: "",
+};
+
+interface UsersTableProps {
+  users: User[];
+}
+
+const COLUMNS = [
+  { key: "org", label: "ORGANIZATION" },
+  { key: "username", label: "USERNAME" },
+  { key: "email", label: "EMAIL" },
+  { key: "phone", label: "PHONE NUMBER" },
+  { key: "joined", label: "DATE JOINED" },
+  { key: "status", label: "STATUS" },
+  { key: "actions", label: "" },
+];
+
+export default function UsersTable({ users }: UsersTableProps) {
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterForm>(emptyFilter);
+  const [openMoreIdx, setOpenMoreIdx] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(100);
+
+  const filteredUsers = users.filter((u) => {
+    if (activeFilter.org && u.org !== activeFilter.org) return false;
+    if (
+      activeFilter.username &&
+      !u.username.toLowerCase().includes(activeFilter.username.toLowerCase())
+    )
+      return false;
+    if (
+      activeFilter.email &&
+      !u.email.toLowerCase().includes(activeFilter.email.toLowerCase())
+    )
+      return false;
+    if (activeFilter.phone && !u.phone.includes(activeFilter.phone))
+      return false;
+    if (activeFilter.status && u.status !== activeFilter.status) return false;
+    return true;
+  });
+
+  const getStatusBadgeClass = (status: User["status"]): string => {
+    const statusClasses: Record<User["status"], string> = {
+      Active: styles["badge--Active"] || "",
+      Inactive: styles["badge--Inactive"] || "",
+      Pending: styles["badge--Pending"] || "",
+      Blacklisted: styles["badge--Blacklisted"] || "",
+    };
+    return statusClasses[status];
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePerPageChange = (perPage: number) => {
+    setPerPage(perPage);
+  };
+
+  return (
+    <div className={styles.tableContainer}>
+      <Table
+        columns={COLUMNS}
+        data={filteredUsers}
+        showFilterRow={filterOpen}
+        showCard={false}
+        filterRowContent={
+          filterOpen ? (
+            <FilterDropdown
+              onClose={() => setFilterOpen(false)}
+              onFilter={(f) => setActiveFilter(f as FilterForm)}
+            />
+          ) : undefined
+        }
+        renderCell={(row, column) => {
+          const user = row as unknown as User;
+          if (column.key === "status") {
+            return (
+              <span className={`${styles.badge} ${getStatusBadgeClass(user.status)}`}>
+                {user.status}
+              </span>
+            );
+          }
+          if (column.key === "org") {
+            return user.org;
+          }
+          if (column.key === "actions") {
+            return (
+              <div className={styles.tdMore}>
+                <div className={styles.moreBtnWrap}>
+                  <button
+                    className={styles.moreBtn}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const idx = filteredUsers.indexOf(user);
+                      setOpenMoreIdx(openMoreIdx === idx ? null : idx);
+                    }}
+                  >
+                    <img src="/icons/more.svg" alt="more" />
+                  </button>
+                  {openMoreIdx === filteredUsers.indexOf(user) && (
+                    <MoreMenu onClose={() => setOpenMoreIdx(null)} />
+                  )}
+                </div>
+              </div>
+            );
+          }
+          if (column.key === "username") {
+            return user.username;
+          }
+          return String(user[column.key as keyof User] ?? "");
+        }}
+        renderHeaderCell={(column) => {
+          if (column.key === "org") {
+            return (
+              <button
+                type="button"
+                className={styles.filterIcon}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFilterOpen((v) => !v);
+                }}
+              >
+                <img
+                  src="/icons/filter-results-button.svg"
+                  alt="filter"
+                />
+              </button>
+            );
+          }
+          return null;
+        }}
+      />
+      <Pagination
+        totalItems={100}
+        initialPage={currentPage}
+        initialPerPage={perPage}
+        onPageChange={handlePageChange}
+        onPerPageChange={handlePerPageChange}
+      />
+    </div>
+  );
+}

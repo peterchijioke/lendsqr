@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import styles from "./sidebar.module.scss";
 
@@ -65,8 +65,14 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
+export const pathToLabelMap: Record<string, string> = {
+  "/dashboard": "Dashboard",
+  "/dashboard/users": "Users",
+};
+
 export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
-  const [activeItem, setActiveItem] = useState("Users");
+  const pathname = usePathname();
+  const activeItem = pathToLabelMap[pathname] || "";
   const router = useRouter();
 
   return (
@@ -90,7 +96,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           <nav className={styles.nav}>
             <div
               className={`${styles.navItem} ${activeItem === "Dashboard" ? styles.active : ""}`}
-              onClick={() => setActiveItem("Dashboard")}
+              onClick={() => router.push("/dashboard")}
             >
               <span className={styles.icon}>
                 <img src={"/icons/home.svg"} />
@@ -107,7 +113,6 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                       key={item.label}
                       className={`${styles.navItem} ${activeItem === item.label ? styles.active : ""}`}
                       onClick={() => {
-                        setActiveItem(item.label);
                         if (item.path) {
                           router.push(item.path);
                         }
