@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./login-form.module.scss";
+import { authService, LoginCredentials } from "@/services/authService";
 
 interface FormErrors {
   email?: string;
@@ -9,9 +11,11 @@ interface FormErrors {
 }
 
 export default function LoginForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validateEmail = (email: string): string | undefined => {
     if (!email) return "Email is required";
@@ -26,7 +30,7 @@ export default function LoginForm() {
     return undefined;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     const formData = new FormData(e.currentTarget);
@@ -45,12 +49,18 @@ export default function LoginForm() {
 
     setErrors({});
     setIsSubmitting(true);
-    
-    console.log({ email, password });
-    
-    setTimeout(() => {
+    setSubmitError(null);
+
+    try {
+      const credentials: LoginCredentials = { email, password };
+      const user = await authService.login(credentials);
+      if (user) {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Invalid email or password");
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (field: "email" | "password") => {
@@ -101,6 +111,10 @@ export default function LoginForm() {
       <a href="/forgot-password" className={styles.forgotLink}>
         Forgot password?
       </a>
+
+      {submitError && (
+        <span className={styles.errorMessage}>{submitError}</span>
+      )}
 
       <button type="submit" className={styles.btnLogin} disabled={isSubmitting}>
         {isSubmitting ? "LOGGING IN..." : "LOG IN"}

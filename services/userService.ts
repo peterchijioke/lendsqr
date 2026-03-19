@@ -56,7 +56,7 @@ export interface User {
   guarantors: Guarantor[];
 }
 
-const API_URL = process.env.API_URL ;
+export const API_URL = process.env.API_URL ;
 
 export interface Stat {
   label: string;
@@ -70,25 +70,10 @@ export interface StatsResponse {
   data: Stat[];
 }
 
-export const getDashboardStats = async (): Promise<Stat[]> => {
-  try {
-    const res = await fetch(`${API_URL}/api/stats`, {
-      cache: 'no-store',
-    });
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch stats');
-    }
-    
-    const response: StatsResponse = await res.json();
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching stats:', error);
-    return [];
-  }
-};
+
 
 export const userService = {
+
  getUser:async (id: string): Promise<User | null> =>{
    try {
      const res = await fetch(`${API_URL}/api/users/${id}`, {

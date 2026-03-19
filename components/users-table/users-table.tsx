@@ -6,7 +6,7 @@ import Table from "@/components/table";
 import MoreMenu from "@/components/more-menu/more-menu";
 import FilterDropdown from "@/components/filter-dropdown/filter-dropdown";
 import Pagination from "@/components/pagination";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Organization } from "@/app/dashboard/users/page";
 
 interface Personal {
@@ -64,6 +64,7 @@ const emptyFilter: FilterForm = {
 interface UsersTableProps {
   users: User[];
   organizations: Organization[];
+  searchQuery?: string;
 }
 
 const COLUMNS = [
@@ -76,8 +77,10 @@ const COLUMNS = [
   { key: "actions", label: "" },
 ];
 
-export default function UsersTable({ users, organizations }: UsersTableProps) {
+export default function UsersTable({ users, organizations, searchQuery: initialSearchQuery = "" }: UsersTableProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams?.get("search") || initialSearchQuery;
   const [openFilterColumn, setOpenFilterColumn] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<FilterForm>(emptyFilter);
   const [openMoreIdx, setOpenMoreIdx] = useState<number | null>(null);
@@ -88,6 +91,19 @@ export default function UsersTable({ users, organizations }: UsersTableProps) {
 
   const filteredUsers = useMemo(() => {
     return users.filter((u) => {
+      // Search query filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch =
+          u.name.toLowerCase().includes(query) ||
+          u.firstName?.toLowerCase().includes(query) ||
+          u.lastName?.toLowerCase().includes(query) ||
+          u.personal?.emailAddress?.toLowerCase().includes(query) ||
+          u.personal?.phoneNumber?.includes(query) ||
+          u.accountNumber?.includes(query);
+        if (!matchesSearch) return false;
+      }
+
       if (
         activeFilter.organization &&
         u.organization.toLowerCase() !== activeFilter.organization.toLowerCase()
@@ -105,7 +121,7 @@ export default function UsersTable({ users, organizations }: UsersTableProps) {
         return false;
       return true;
     });
-  }, [users, activeFilter]);
+  }, [users, activeFilter, searchQuery]);
 
   const totalItems = filteredUsers.length;
   const startIndex = (currentPage - 1) * perPage;

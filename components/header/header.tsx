@@ -1,20 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./header.module.scss";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { authService, LoginUser } from "../../services/authService";
 
 interface HeaderProps {
   onMenuClick?: () => void;
   isSidebarOpen?: boolean;
+  onSearch?: (query: string) => void;
 }
 
-export default function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+export default function Header({ onMenuClick, isSidebarOpen, onSearch }: HeaderProps) {
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams?.get("search") || "";
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [showMobileDropdown, setShowMobileDropdown] = useState(false);
+  const [user, setUser] = useState<LoginUser | null>(null);
+
+  useEffect(() => {
+    const storedUser = authService.getStoredUser();
+    setUser(storedUser);
+  }, []);
+
+  useEffect(() => {
+    setSearchQuery(initialSearch);
+  }, [initialSearch]);
 
   const handleHamburgerClick = () => {
     onMenuClick?.();
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch?.(searchQuery);
   };
 
   return (
@@ -23,7 +43,7 @@ export default function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
         <a href="/" className={styles.logo}>
           <img src="/logo.svg" />
         </a>
-        <div className={styles.searchContainer}>
+        <form className={styles.searchContainer} onSubmit={handleSearch}>
           <input
             type="text"
             className={styles.searchInput}
@@ -31,12 +51,12 @@ export default function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className={styles.searchButton}>
+          <button type="submit" className={styles.searchButton}>
             <span>
               <img src={"/icons/search.svg"} />
             </span>
           </button>
-        </div>
+        </form>
       </div>
 
       <div className={styles.actions}>
@@ -52,7 +72,9 @@ export default function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
           <div className={styles.avatar}>
             <img src="/profile.png" alt="User" />
           </div>
-          <span className={styles.userName}>Adedeji</span>
+          <span className={styles.userName}>
+            {user ? `${user.firstName} ${user.lastName}` : "User"}
+          </span>
           <span className={styles.dropdownArrow}>
             <img src={"/icons/down-sh.svg"} />
           </span>
@@ -100,7 +122,9 @@ export default function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
               <img src="/profile.png" alt="User" />
             </div>
             <div className={styles.dropdownUserInfo}>
-              <span className={styles.dropdownUserName}>Adedeji</span>
+              <span className={styles.dropdownUserName}>
+                {user ? `${user.firstName} ${user.lastName}` : "User"}
+              </span>
             </div>
           </div>
         </div>

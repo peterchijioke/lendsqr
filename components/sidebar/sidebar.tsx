@@ -1,9 +1,9 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import styles from "./sidebar.module.scss";
-import { getActiveLabel, isActivePath } from "./sidebar-utils";
+import { getActiveLabel } from "./sidebar-utils";
+import LogoutButton from "./logout-button";
 
 interface NavItem {
   label: string;
@@ -66,13 +66,8 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const activeItem = getActiveLabel(pathname);
   const router = useRouter();
-
-  const handleLogout = () => {
-    // handle logout logic here
-    router.push("/login");
-  };
+  const activeItem = getActiveLabel(pathname);
 
   return (
     <>
@@ -140,12 +135,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           <div className={styles.sidebarBottom}>
             <div className={styles.bottomDivider} />
 
-            <div className={styles.navItem} onClick={handleLogout}>
-              <span className={styles.icon}>
-                <img src={"/icons/sign-out.svg"} />
-              </span>
-              <span>Logout</span>
-            </div>
+            <LogoutButton />
 
             <p className={styles.version}>v1.2.0</p>
           </div>

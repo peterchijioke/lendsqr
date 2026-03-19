@@ -117,7 +117,13 @@ function transformValue(value: string, transform?: string): string {
   }
 }
 
-export default async function UsersPage() {
+export default async function UsersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string }>;
+}) {
+  const resolvedParams = await searchParams;
+  const searchQuery = resolvedParams?.search || "";
   const users = await userService.getUsers();
   const organizations = await userService.getOrganizations();
   const apiStats = await userService.getDashboardStats();
@@ -146,7 +152,7 @@ export default async function UsersPage() {
         ))}
       </div>
 
-      <UsersTable organizations={organizations} users={users} />
+      <UsersTable organizations={organizations} users={users} searchQuery={searchQuery} />
     </div>
   );
 }

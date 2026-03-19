@@ -1,6 +1,25 @@
 
 @use '../../styles/variables' as *;
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 :global(*),
 :global(*::before),
@@ -31,6 +50,7 @@
   flex-direction: column;
   padding: 48px 56px;
   background: $white;
+  animation: fadeIn 0.6s ease-out;
 
   @media (max-width: 768px) {
     grid-row: 1;
@@ -38,10 +58,12 @@
     visibility: visible;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    padding: 16px 24px;
+    justify-content: flex-start;
+    padding: 0;
     min-height: auto;
     width: 100%;
+    background-color: $white;
+    position: relative;
   }
 }
 
@@ -59,9 +81,13 @@
 
   @media (max-width: 768px) {
     align-self: flex-start;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
     
     img {
-      width: 140px;
+      width: 120px;
       height: auto;
     }
   }
@@ -100,12 +126,13 @@
     display: flex !important;
     visibility: visible !important;
     padding: 0;
-    min-height: 250px;
+    min-height: 200px;
+    height: 200px;
     width: 100%;
     
     img {
       width: 100%;
-      height: 100%;
+      height: 200px !important;
       object-fit: cover;
       max-width: none;
       display: block;
@@ -119,6 +146,7 @@
   align-items: center;
   justify-content: center;
   padding: 64px 80px;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
 
   @media (max-width: 1024px) {
     padding: 48px 40px;
@@ -127,11 +155,12 @@
   @media (max-width: 768px) {
     grid-row: 2;
     padding: 24px 24px;
+    background-color: $white;
   }
 }
 
 .loginFormWrap {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
 }
 
@@ -142,6 +171,7 @@
   line-height: 1.1;
   letter-spacing: -1px;
   margin-bottom: 8px;
+  animation: fadeInUp 0.5s ease-out 0.3s both;
 }
 
 .loginSubtitle {
@@ -149,4 +179,5 @@
   font-weight: 400;
   color: $text-secondary;
   margin-bottom: 40px;
+  animation: fadeInUp 0.5s ease-out 0.4s both;
 }
