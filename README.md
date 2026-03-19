@@ -54,6 +54,14 @@ lendsqr/
 │   └── _variables.scss          # Design system variables
 ├── data/                         # Mock data
 │   └── mock-users.json          # User mock data (500 records)
+├── test/                         # Unit tests
+│   ├── header.test.tsx         # Header component tests
+│   ├── users-table.test.tsx    # UsersTable component tests
+│   ├── sidebar.test.tsx        # Sidebar component tests
+│   ├── login-form.test.tsx     # LoginForm component tests
+│   └── authService.test.ts    # Auth service tests
+├── jest.config.ts               # Jest configuration
+├── jest.setup.ts                # Jest setup file
 └── Configuration files
     ├── next.config.ts
     ├── tsconfig.json
@@ -135,6 +143,9 @@ pnpm start
 | `pnpm build` | Build for production |
 | `pnpm start` | Start production server |
 | `pnpm lint` | Run ESLint |
+| `pnpm test` | Run unit tests |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm test:coverage` | Run tests with coverage |
 
 ## Environment Variables
 
@@ -425,6 +436,35 @@ monthlyIncome: typeof user.education.monthlyIncome === 'string'
     ? `₦${user.education.monthlyIncome.min?.toLocaleString("en-NG")}– ₦${user.education.monthlyIncome.max?.toLocaleString("en-NG")}`
     : "N/A",
 ```
+
+## Testing
+
+This project uses Jest and React Testing Library for unit testing.
+
+### Test Coverage
+
+- **Header Component** - User display, search functionality
+- **UsersTable Component** - Rendering, search filtering, pagination
+- **Sidebar Component** - Navigation, organization switcher
+- **LoginForm Component** - Form validation, submission
+- **authService** - Login, logout, localStorage operations
+
+### Running Tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+```
+
+### Test Results
+
+Total: 44 passing tests with positive and negative scenarios
 
 ## License
 
