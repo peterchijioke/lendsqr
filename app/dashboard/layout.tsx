@@ -8,8 +8,13 @@ import Header from "../../components/header/header";
 import styles from "./layout.module.scss";
 
 const HeaderWithSearch = dynamic(
-  () => Promise.resolve(function HeaderWithSearchInner() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+  () => Promise.resolve(function HeaderWithSearchInner({ 
+    isSidebarOpen, 
+    onMenuClick 
+  }: { 
+    isSidebarOpen?: boolean; 
+    onMenuClick?: () => void 
+  }) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -25,8 +30,8 @@ const HeaderWithSearch = dynamic(
 
     return (
       <Header 
-        isSidebarOpen={sidebarOpen}
-        onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        isSidebarOpen={isSidebarOpen}
+        onMenuClick={onMenuClick}
         onSearch={handleSearch}
       />
     );
@@ -43,7 +48,10 @@ export default function DashboardLayout({
 
   return (
     <>
-      <HeaderWithSearch />
+      <HeaderWithSearch 
+        isSidebarOpen={sidebarOpen}
+        onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+      />
 
       <div className={styles.dashboard}>
         <Sidebar 
