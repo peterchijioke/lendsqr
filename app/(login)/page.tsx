@@ -9,7 +9,7 @@ export default async function LoginPage() {
         </a>
 
         <div className={styles.heroIllustration}>
-          <img src="/login/pablo-sign-in 1.svg" />
+          <img src="/login/pablo-sign-in.svg" />
         </div>
       </aside>
 
