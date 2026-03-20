@@ -24,7 +24,7 @@
   box-sizing: border-box;
   background: $white;
   border: 1px solid $border;
-  border-radius: $radius-sm;
+  border-radius: .3rem;
   font-family: inherit;
   font-size: 14px;
   color: $navy;
@@ -74,11 +74,10 @@
   display: block;
   font-size: 12px;
   font-weight: 600;
-  color: $error;
+  color: $teal;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-top: -8px;
   transition: opacity $transition;
 
   &:hover {
@@ -92,7 +91,7 @@
   box-sizing: border-box;
   background: $teal;
   border: none;
-  border-radius: $radius-sm;
+  border-radius: .3rem;
   color: $white;
   font-family: inherit;
   font-size: 15px;
